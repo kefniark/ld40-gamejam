@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f12125c036f0174795eff19c42b6b82, type: 3}
+  m_Name: BuildingFactory
+  m_EditorClassIdentifier: 
+  BuildingConfigs:
+  - Id: 1
+    Prefab: {fileID: 1093024840360448, guid: 3fa74589a3eafe849a049c5300e1c78c, type: 2}
+  - Id: 2
+    Prefab: {fileID: 1093024840360448, guid: ac6f75de10e00d046ba68c87e7aa5d12, type: 2}
+  - Id: 3
+    Prefab: {fileID: 1093024840360448, guid: 16d6f88b18e28e047b2c5e2edfcc7eb7, type: 2}
+  - Id: 4
+    Prefab: {fileID: 1093024840360448, guid: 126c3c0f4d8d02947a0fa9a208fbd579, type: 2}
+  - Id: 5
+    Prefab: {fileID: 1093024840360448, guid: 788f387c339a21f4bb27ac673f4d2743, type: 2}
