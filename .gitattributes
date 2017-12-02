@@ -35,6 +35,7 @@
 *.bz2 binary
 *.swp binary
 *.chm binary
+*.dll binary
 
 # Unity file auto collapse
 *.anim binary -diff

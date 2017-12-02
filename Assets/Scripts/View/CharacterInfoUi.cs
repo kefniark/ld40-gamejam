@@ -19,14 +19,12 @@ namespace Assets.Scripts.View
 			Character = character;
 			Tracking.FollowThis = Character.transform;
 			Canvas = GetComponent<CanvasGroup>();
-			Character.WaitChanged += OnWaitChanged;
+
+			var waitTarget = Character.States.States[CharacterActionEnum.WaitTarget] as StateWaitTarget;
+			waitTarget.WaitChanged += (sender, arg) => WaitFill.fillAmount = waitTarget.Wait;
+
 			Character.InterestChanged += (obj, args) => UpdateInterest();
 			UpdateInterest();
-		}
-
-		private void OnWaitChanged(object sender, System.EventArgs e)
-		{
-			WaitFill.fillAmount = Character.Wait;
 		}
 
 		private void UpdateInterest()

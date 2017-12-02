@@ -9,6 +9,7 @@ using Assets.Scripts.Entities.Characters;
 using UnityEngine;
 
 using Random = System.Random;
+using Assets.Scripts.Components;
 
 namespace Assets.Scripts
 {

@@ -3,8 +3,14 @@ namespace Assets.Scripts
 	public enum CharacterActionEnum
 	{
 		None,
-		Idle,
-		Target,
-		Home
+		WaitInside,
+		EnterAnimation,
+		LeaveAnimation,
+		Decide,
+		WaitTarget,
+		MoveToTarget,
+		EnterTargetAnimation,
+		LeaveTargetAnimation,
+		MoveToHome
 	}
 }

@@ -2,7 +2,7 @@ using DG.Tweening;
 
 using UnityEngine;
 
-namespace Assets.Scripts.Building
+namespace Assets.Scripts.Components
 {
 	public class CameraController : MonoBehaviour
 	{
