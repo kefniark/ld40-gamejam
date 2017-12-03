@@ -230,8 +230,11 @@ namespace Assets.Scripts
 			if (slot == null)
 			{
 				var slots = Slot.Slots.Where(x => x.Content == null).ToList();
-				int r = rnd.Next(slots.Count);
-				slot = slots[r];
+				if (slots.Count > 0)
+				{
+					int r = rnd.Next(slots.Count);
+					slot = slots[r];
+				}
 			}
 
 			if (slot == null)
