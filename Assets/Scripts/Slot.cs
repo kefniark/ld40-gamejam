@@ -31,12 +31,18 @@ namespace Assets.Scripts
 		public Material HoverColor;
 
 		private Renderer CurrentRenderer;
+		private MeshRenderer MeshRenderer;
 
 		private void OnEnable() => Slots.Add(this);
 
 		private void OnDisable() => Slots.Remove(this);
 
-		private void Start() => CurrentRenderer = GetComponent<Renderer>();
+		private void Start()
+		{
+			CurrentRenderer = GetComponent<Renderer>();
+			MeshRenderer = GetComponent<MeshRenderer>();
+			MeshRenderer.enabled = false;
+		}
 
 		private void GetDefault()
 		{
@@ -50,17 +56,24 @@ namespace Assets.Scripts
 		private void OnMouseEnter()
 		{
 			GetDefault();
+			
 			if (Content != null)
 			{
-				CurrentRenderer.material = ErrorColor;
+				// CurrentRenderer.material = ErrorColor;
 				return;
 			}
+
+			MeshRenderer.enabled = true;
 			CurrentRenderer.material = HoverColor;
 		}
 
 		private void OnMouseDown() => SlotClicked?.Invoke(this, EventArgs.Empty);
 
-		private void OnMouseExit() => CurrentRenderer.material = DefaultColor;
+		private void OnMouseExit()
+		{
+			MeshRenderer.enabled = false;
+			CurrentRenderer.material = DefaultColor;
+		}
 
 		public BaseBuilding Build(BuildingEnum type)
 		{

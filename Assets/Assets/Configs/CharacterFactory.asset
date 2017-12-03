@@ -14,3 +14,5 @@ MonoBehaviour:
   CharacterConfigs:
   - Id: 2
     Prefab: {fileID: 1376871236971010, guid: 19a90ed9c141efb4892b64efe697609b, type: 2}
+  - Id: 1
+    Prefab: {fileID: 1376871236971010, guid: f1acbb24f54024b4dafbcdc571cc3454, type: 2}

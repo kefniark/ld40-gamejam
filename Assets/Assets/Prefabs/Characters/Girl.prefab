@@ -79,7 +79,7 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1934729174319946}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ee78716f63341ddb33202b729b0d8d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 0
+  MaxWait: 10
   Config:
     Interests:
     - Percentage: 0
@@ -137,9 +137,6 @@ MonoBehaviour:
       Type: 4
       Radius: 60
   NavMeshAgent: {fileID: 195597904029920136}
-  Action: 0
-  Origin: {fileID: 0}
-  Target: {fileID: 0}
 --- !u!195 &195597904029920136
 NavMeshAgent:
   m_ObjectHideFlags: 1

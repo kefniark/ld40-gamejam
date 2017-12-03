@@ -70,6 +70,7 @@ namespace Assets.Scripts
 		public CameraController CameraController;
 		public GameConfigFactory GameConfig;
 		public GameUi GameUi;
+		private float wait = 12f;
 		
 		private IEnumerator Start()
 		{
@@ -81,7 +82,8 @@ namespace Assets.Scripts
 			{
 				SpawnHouse();
 
-				yield return new WaitForSeconds(15f);
+				yield return new WaitForSeconds(wait);
+				wait = Math.Max(wait - 1, 2);
 			}
 		}
 
@@ -109,7 +111,7 @@ namespace Assets.Scripts
 		private void CreateBuilding(Slot slot, BuildingEnum type)
 		{
 			BaseBuilding newBuilding = slot.Build(type);
-			Debug.Log($"New Buidling Created : {newBuilding}");
+			// Debug.Log($"New Buidling Created : {newBuilding}");
 		}
 
 		private void CreateCharacter(Slot slot, CharacterEnum type)
@@ -118,17 +120,17 @@ namespace Assets.Scripts
 			newChar.CharacterUpseted += OnCharacterUpseted;
 			newChar.InterestReached += OnCharacterInterestReached;
 			CharacterSpawned?.Invoke(this, new CharacterSpawnedArgs {Character = newChar });
-			Debug.Log($"New Character Created : {newChar}");
+			// Debug.Log($"New Character Created : {newChar}");
 		}
 
 		private void OnCharacterInterestReached(object sender, EventArgs e)
 		{
-			Money += 5;
+			Money += 15;
 		}
 
 		private void OnCharacterUpseted(object sender, EventArgs eventArgs)
 		{
-			Popularity = Math.Max(Popularity - 0.2f, 0);
+			Popularity = Math.Max(Popularity - 0.1f, 0);
 			Debug.Log($"OnCharacterUpseted {Popularity}");
 			if (Popularity <= 0.01f)
 			{
@@ -167,18 +169,26 @@ namespace Assets.Scripts
 
 		private void SpawnHouse()
 		{
-			Slot slot;
-			if (lastHouse == null)
+			Slot slot = null;
+
+			// pick a random slot @ proximity
+			if (lastHouse != null)
+			{
+				List<Slot> slots = Slot.Slots
+					.Where(x => x.Content == null)
+					.Where(x => Vector3.Distance(x.transform.position, lastHouse.transform.position) < 30f).ToList();
+				if (slots.Count > 0)
+				{
+					int r = rnd.Next(slots.Count);
+					slot = slots[r];
+				}
+			}
+
+			// pick a random slot
+			if (slot == null)
 			{
 				int r = rnd.Next(Slot.Slots.Count);
 				slot = Slot.Slots[r];
-			} else
-			{
-				List<Slot> slots = Slot.Slots
-							.Where(x => x.Content == null)
-							.Where(x => Vector3.Distance(x.transform.position, lastHouse.transform.position) < 25f).ToList();
-				int r = rnd.Next(slots.Count);
-				slot = slots[r];
 			}
 
 			if (slot == null)
@@ -187,8 +197,12 @@ namespace Assets.Scripts
 			}
 			
 			CreateBuilding(slot, BuildingEnum.House);
-			CreateCharacter(slot, CharacterEnum.Girl);
-			CameraController.MoveTo(slot.transform.position);
+			
+			CreateCharacter(slot, UnityEngine.Random.Range(0f, 1f) > 0.6 ? CharacterEnum.Boy : CharacterEnum.Girl);
+			if (wait >= 10)
+			{
+				CameraController.MoveTo(slot.transform.position);
+			}
 			lastHouse = slot.transform;
 		}
 

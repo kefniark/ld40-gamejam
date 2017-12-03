@@ -7,6 +7,7 @@ namespace Assets.Scripts
 		Restaurant,
 		Office,
 		Market,
-		SolarStation
+		Cinema,
+		Sport
 	}
 }

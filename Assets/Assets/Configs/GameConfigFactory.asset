@@ -13,11 +13,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitMoney: 90
   Buildings:
-  - Price: 10
+  - Price: 20
     Type: 2
   - Price: 20
     Type: 3
   - Price: 50
     Type: 4
-  - Price: 100
+  - Price: 70
     Type: 5
+  - Price: 70
+    Type: 6
