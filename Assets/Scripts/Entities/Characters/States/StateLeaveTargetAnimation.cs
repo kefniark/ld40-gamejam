@@ -1,5 +1,7 @@
 using Assets.Scripts.Components.StateMachine;
-using System.Collections;
+
+using DG.Tweening;
+
 using UnityEngine;
 
 namespace Assets.Scripts.Entities.Characters
@@ -13,13 +15,11 @@ namespace Assets.Scripts.Entities.Characters
 
 		private void OnStateEntered(object sender, System.EventArgs e)
 		{
-			Entity.StartCoroutine(WaitAnimation());
-		}
-
-		private IEnumerator WaitAnimation()
-		{
-			yield return new WaitForSeconds(0.2f);
-			StateMachine.ChangeState(CharacterActionEnum.MoveToHome);
+			Transform target = Entity.Target.Door.transform;
+			Entity.transform.DOMove(target.position, 0.8f).OnComplete(() => {
+				Entity.NavMeshAgent.enabled = true;
+				StateMachine.ChangeState(CharacterActionEnum.MoveToHome);
+			});
 		}
 	}
 }

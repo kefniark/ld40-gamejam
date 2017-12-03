@@ -6,6 +6,7 @@ This game was made during the [Ludum Dare 40](https://ldjam.com/events/ludum-dar
 * Source code must be included.
 
 **Theme**: The more you have, the worse it is
+
 **Rules**: [Here](https://ldjam.com/events/ludum-dare/rules)
 
 ## Description
@@ -17,7 +18,8 @@ Soon ^^
 * Paint.net
 * MagicaVoxel
 * Google drive
-* [Logo Makr](https://logomakr.com/)
+* [Logo Makr](https://logomakr.com/) : Icons
+* [Cool Text](https://cooltext.com/) : Title
 
 ## License
 This project was made under [MIT License](LICENSE)

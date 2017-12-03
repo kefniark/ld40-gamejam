@@ -8,6 +8,8 @@ namespace Assets.Scripts
 		Office,
 		Market,
 		Cinema,
-		Sport
+		Sport,
+		Clinic,
+		Cafe
 	}
 }

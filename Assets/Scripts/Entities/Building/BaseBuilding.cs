@@ -8,6 +8,8 @@ namespace Assets.Scripts.Building
 
 		public Transform Door;
 
+		public Transform Model;
+
 		public override string ToString() => $"[Building {Type}]";
 	}
 }

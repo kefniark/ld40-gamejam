@@ -1,5 +1,7 @@
 using Assets.Scripts.Components.StateMachine;
-using System.Collections;
+
+using DG.Tweening;
+
 using UnityEngine;
 
 namespace Assets.Scripts.Entities.Characters
@@ -13,14 +15,12 @@ namespace Assets.Scripts.Entities.Characters
 
 		private void OnStateEntered(object sender, System.EventArgs e)
 		{
-			Entity.StartCoroutine(WaitAnimation());
-		}
-
-		private IEnumerator WaitAnimation()
-		{
-			yield return new WaitForSeconds(0.2f);
-			Entity.SolvedInterest();
-			StateMachine.ChangeState(CharacterActionEnum.LeaveTargetAnimation);
+			Transform target = Entity.Target.transform;
+			Entity.NavMeshAgent.enabled = false;
+			Entity.transform.DOMove(target.position, 0.8f).OnComplete(() => {
+				Entity.SolvedInterest();
+				StateMachine.ChangeState(CharacterActionEnum.WaitInsideTarget);
+			});
 		}
 	}
 }

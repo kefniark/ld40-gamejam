@@ -11,6 +11,7 @@ namespace Assets.Scripts
 		MoveToTarget,
 		EnterTargetAnimation,
 		LeaveTargetAnimation,
+		WaitInsideTarget,
 		MoveToHome
 	}
 }

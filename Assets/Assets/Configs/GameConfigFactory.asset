@@ -17,9 +17,13 @@ MonoBehaviour:
     Type: 2
   - Price: 20
     Type: 3
-  - Price: 50
+  - Price: 30
     Type: 4
-  - Price: 70
+  - Price: 40
     Type: 5
-  - Price: 70
+  - Price: 10
     Type: 6
+  - Price: 50
+    Type: 7
+  - Price: 30
+    Type: 8

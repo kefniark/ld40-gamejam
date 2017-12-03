@@ -29,12 +29,13 @@ namespace Assets.Scripts.Entities.Characters
 		private CharacterInterest interest = null;
 
 		public StateMachine<CharacterActionEnum, BaseCharacter> States;
-		private BaseBuilding Origin = null;
-		private BaseBuilding Target = null;
+		public BaseBuilding Origin { get; protected set; }
+		public BaseBuilding Target { get; protected set; }
 
 		public void Setup(BaseBuilding house)
 		{
 			Id = Random.Range(0, 99999);
+			MaxWait = Random.Range(7f, 12f);
 			Origin = house;
 
 			States = new StateMachine<CharacterActionEnum, BaseCharacter>(this);
@@ -47,13 +48,13 @@ namespace Assets.Scripts.Entities.Characters
 			States.Add(CharacterActionEnum.MoveToTarget, new StateMoveToTarget());
 			States.Add(CharacterActionEnum.LeaveTargetAnimation, new StateLeaveTargetAnimation());
 			States.Add(CharacterActionEnum.EnterTargetAnimation, new StateEnterTargetAnimation());
+			States.Add(CharacterActionEnum.WaitInsideTarget, new StateWaitInsideTarget());
 			States.Add(CharacterActionEnum.MoveToHome, new StateMoveToHome());
 			States.Start();
 
 			// States.StateChanged += (sender, arg) => Debug.Log($"[CharacterState {States.Previous} => {States.Current}]");
 
 			// Debug.Log($"{this} Setup");
-			NavMeshAgent.enabled = true;
 			States.ChangeState(CharacterActionEnum.WaitInside);
 		}
 

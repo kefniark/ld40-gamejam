@@ -4,6 +4,8 @@ namespace Assets.Scripts
 	{
 		None,
 		Boy,
-		Girl
+		Girl,
+		Boy2,
+		Girl2
 	}
 }

@@ -37,7 +37,7 @@ namespace Assets.Scripts.View
 			HideWait();
 
 			var canvas = GetComponent<CanvasGroup>();
-			canvas.DOFade(1, 0.5f).SetDelay(0.5f);
+			canvas.DOFade(1, 0.5f).SetDelay(2.5f);
 		}
 
 		private void UpdateInterest()

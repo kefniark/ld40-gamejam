@@ -5,6 +5,7 @@ using Assets.Scripts.Building;
 using Assets.Scripts.Entities.Characters;
 
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Assets.Scripts
 {
@@ -33,6 +34,8 @@ namespace Assets.Scripts
 		private Renderer CurrentRenderer;
 		private MeshRenderer MeshRenderer;
 
+		public bool IsInteractable = true;
+
 		private void OnEnable() => Slots.Add(this);
 
 		private void OnDisable() => Slots.Remove(this);
@@ -55,6 +58,11 @@ namespace Assets.Scripts
 
 		private void OnMouseEnter()
 		{
+			if (!IsInteractable || EventSystem.current.IsPointerOverGameObject())
+			{
+				return;
+			}
+
 			GetDefault();
 			
 			if (Content != null)
@@ -67,10 +75,21 @@ namespace Assets.Scripts
 			CurrentRenderer.material = HoverColor;
 		}
 
-		private void OnMouseDown() => SlotClicked?.Invoke(this, EventArgs.Empty);
+		private void OnMouseDown()
+		{
+			if (!IsInteractable || EventSystem.current.IsPointerOverGameObject())
+			{
+				return;
+			}
+			SlotClicked?.Invoke(this, EventArgs.Empty);
+		}
 
 		private void OnMouseExit()
 		{
+			if (!IsInteractable)
+			{
+				return;
+			}
 			MeshRenderer.enabled = false;
 			CurrentRenderer.material = DefaultColor;
 		}
@@ -82,16 +101,16 @@ namespace Assets.Scripts
 				return null;
 			}
 
-			Content = GameObject.Instantiate(BuildingFactory.GetPrefab(type), transform);
+			Content = Instantiate(BuildingFactory.GetPrefab(type), transform);
 			Building = Content.GetComponent<BaseBuilding>();
 			return Building;
 		}
 
 		public BaseCharacter SpawnCharacter(CharacterEnum type)
 		{
-			GameObject go = GameObject.Instantiate(CharacterFactory.GetPrefab(type));
+			GameObject go = Instantiate(CharacterFactory.GetPrefab(type));
 			go.transform.SetParent(GameObject.Find("Environment/Map/Entities").transform, false);
-			go.transform.position = Building.Door.position;
+			go.transform.position = Building.transform.position;
 			var character = go.GetComponent<BaseCharacter>();
 			character?.Setup(Building);
 			return character;
