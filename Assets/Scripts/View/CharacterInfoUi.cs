@@ -67,9 +67,19 @@ namespace Assets.Scripts.View
 
 		private void ShowLogo(string val)
 		{
-			bool isNotInteresting = (val == "walk" || val == "happy" || val == "House");
 			CanvasAnim?.Kill();
-			CanvasAnim = Canvas.DOFade(isNotInteresting ? 0.4f : 1f, 1f);
+			if (val == "walk" || val == "House")
+			{
+				CanvasAnim = Canvas.DOFade(0f, 1f);
+			}
+			else if (val == "House")
+			{
+				CanvasAnim = Canvas.DOFade(0.6f, 1f);
+			}
+			else
+			{
+				CanvasAnim = Canvas.DOFade(1f, 1f);
+			}
 
 			foreach (CharacterInfoLogo logo in LogoActions)
 			{

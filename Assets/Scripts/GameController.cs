@@ -36,6 +36,9 @@ namespace Assets.Scripts
 		private float firstTime;
 		private float lastTime;
 
+		public AudioSource SpawnHouseSfx;
+		public AudioSource SpawnBuildingSfx;
+
 		private void Start()
 		{
 			Init();
@@ -207,6 +210,7 @@ namespace Assets.Scripts
 			Money -= selectedBuilding.Price;
 
 			CreateBuilding(slot, selectedBuilding.Type);
+			SpawnBuildingSfx.Play();
 		}
 
 		public void SpawnHouse()
@@ -271,7 +275,7 @@ namespace Assets.Scripts
 				CreateCharacter(slot, type);
 			}
 
-
+			SpawnHouseSfx.Play();
 			houseSpawnedCounter++;
 			lastHouse = slot.transform;
 		}
@@ -286,7 +290,6 @@ namespace Assets.Scripts
 				Score += 2;
 			}
 		}
-
 	}
 
 	public class CharacterSpawnedArgs
