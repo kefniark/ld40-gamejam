@@ -13,7 +13,7 @@ AudioImporter:
     quality: 0.65
     conversionMode: 0
   platformSettingOverrides: {}
-  forceToMono: 1
+  forceToMono: 0
   normalize: 1
   preloadAudioData: 1
   loadInBackground: 1

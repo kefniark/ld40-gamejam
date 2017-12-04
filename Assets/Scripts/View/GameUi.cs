@@ -58,7 +58,7 @@ namespace Assets.Scripts.View
 
 		private void UpdateScore() => Score.text = $"{Game.Score:000000}";
 
-		private void UpdateMoney() => Money.text = Game.Money + " K$";
+		private void UpdateMoney() => Money.text = $"{Game.Money} K$";
 
 		private void UpdatePopularity() => PopularityFill.DOFillAmount(Game.Popularity, 0.25f);
 
