@@ -32,10 +32,17 @@ namespace Assets.Scripts.Entities.Characters
 		public BaseBuilding Origin { get; protected set; }
 		public BaseBuilding Target { get; protected set; }
 
-		public void Setup(BaseBuilding house)
+		public void Setup(BaseBuilding house, bool endgame)
 		{
 			Id = Random.Range(0, 99999);
-			MaxWait = Random.Range(7f, 12f);
+			if (endgame)
+			{
+				MaxWait = Random.Range(5f, 9f);
+			}
+			else
+			{
+				MaxWait = Random.Range(9f, 14f);
+			}
 			Origin = house;
 
 			States = new StateMachine<CharacterActionEnum, BaseCharacter>(this);
@@ -44,7 +51,7 @@ namespace Assets.Scripts.Entities.Characters
 			States.Add(CharacterActionEnum.LeaveAnimation, new StateLeaveAnimation());
 			States.Add(CharacterActionEnum.EnterAnimation, new StateEnterAnimation());
 			States.Add(CharacterActionEnum.Decide, new StateDecide());
-			States.Add(CharacterActionEnum.WaitTarget, new StateWaitTarget());
+			States.Add(CharacterActionEnum.WaitTarget, new StateWaitTarget(MaxWait));
 			States.Add(CharacterActionEnum.MoveToTarget, new StateMoveToTarget());
 			States.Add(CharacterActionEnum.LeaveTargetAnimation, new StateLeaveTargetAnimation());
 			States.Add(CharacterActionEnum.EnterTargetAnimation, new StateEnterTargetAnimation());

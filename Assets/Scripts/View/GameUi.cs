@@ -45,6 +45,7 @@ namespace Assets.Scripts.View
 			UpdateScore();
 			UpdateMoney();
 			UpdatePopularity();
+			AudioSfx.DOSetFloat("SfxVolume", 0, 0.5f).SetDelay(5f);
 		}
 
 		private void OnClickBuildingButton(Button clickedButton, GameBuildingConfig config)

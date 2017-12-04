@@ -129,7 +129,7 @@ MonoBehaviour:
     Interests:
     - Percentage: 0
       Type: 2
-      Radius: 40
+      Radius: 30
     - Percentage: 0
       Type: 3
       Radius: 30

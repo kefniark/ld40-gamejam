@@ -21,7 +21,7 @@ namespace Assets.Scripts.States
 		private void StateResult_Entered(object sender, System.EventArgs e)
 		{
 			UI.GetComponent<CanvasGroup>().DOFade(0, 0.3f).OnComplete(() => UI.gameObject.SetActive(false));
-			Result.ShowResult(Entity.Score, Entity.Duration);
+			Result.ShowResult(Entity.Score + Entity.Money, Entity.Duration);
 		}
 	}
 }

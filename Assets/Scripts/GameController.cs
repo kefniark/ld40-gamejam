@@ -38,6 +38,7 @@ namespace Assets.Scripts
 
 		public AudioSource SpawnHouseSfx;
 		public AudioSource SpawnBuildingSfx;
+		public AudioSource NoMoneySfx;
 
 		private void Start()
 		{
@@ -77,7 +78,7 @@ namespace Assets.Scripts
 			Debug.Log($"Use Building {config}");
 		}
 
-		#region  Money
+		#region Score
 
 		private float score;
 		public event EventHandler ScoreChanged;
@@ -155,12 +156,12 @@ namespace Assets.Scripts
 			Vector3 original = building.Model.transform.position;
 
 			building.Model.transform.position -= Vector3.up * 5;
-			building.Model.DOMove(original, 0.4f);
+			building.Model.DOMove(original, 0.4f).SetDelay(0.1f);
 		}
 
 		private void CreateCharacter(Slot slot, CharacterEnum type)
 		{
-			BaseCharacter newChar = slot.SpawnCharacter(type);
+			BaseCharacter newChar = slot.SpawnCharacter(type, houseSpawnedCounter >= 12);
 			newChar.CharacterUpseted += OnCharacterUpseted;
 			newChar.InterestReached += OnCharacterInterestReached;
 			CharacterSpawned?.Invoke(this, new CharacterSpawnedArgs {Character = newChar});
@@ -204,6 +205,7 @@ namespace Assets.Scripts
 
 			if (selectedBuilding.Price > Money)
 			{
+				NoMoneySfx.Play();
 				return;
 			}
 
@@ -281,6 +283,7 @@ namespace Assets.Scripts
 		}
 
 		#endregion
+
 		private void Update()
 		{
 			lastTime += Time.deltaTime;
@@ -288,6 +291,12 @@ namespace Assets.Scripts
 			{
 				lastTime -= 2;
 				Score += 2;
+			}
+
+			// force gameover after 4min
+			if (Time.time - firstTime > 5 * 60)
+			{
+				(States.States[GameStates.Game] as StateGame)?.GameOver();
 			}
 		}
 	}

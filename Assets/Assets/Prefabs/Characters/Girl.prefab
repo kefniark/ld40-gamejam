@@ -132,10 +132,13 @@ MonoBehaviour:
       Radius: 40
     - Percentage: 0
       Type: 3
-      Radius: 20
+      Radius: 30
     - Percentage: 0
       Type: 4
-      Radius: 60
+      Radius: 50
+    - Percentage: 0
+      Type: 7
+      Radius: 40
   NavMeshAgent: {fileID: 195597904029920136}
 --- !u!195 &195597904029920136
 NavMeshAgent:

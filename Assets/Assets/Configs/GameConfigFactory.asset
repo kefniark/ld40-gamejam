@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909799dd2c1c3d94bb3fd7759e9fb71c, type: 3}
   m_Name: GameConfigFactory
   m_EditorClassIdentifier: 
-  InitMoney: 90
+  InitMoney: 120
   Buildings:
   - Price: 20
     Type: 2

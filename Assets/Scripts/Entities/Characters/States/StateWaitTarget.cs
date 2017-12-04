@@ -11,12 +11,13 @@ namespace Assets.Scripts.Entities.Characters
 	{
 		public event EventHandler WaitChanged;
 		private float stateEntered;
-		public float maxDuration = 12f;
+		public readonly float maxDuration;
 		public float Wait => Math.Max(Math.Min((Time.time - stateEntered) / maxDuration, 1), 0);
 
-		public StateWaitTarget()
+		public StateWaitTarget(float duration)
 		{
 			Entered += OnStateEntered;
+			maxDuration = duration;
 		}
 
 		private void OnStateEntered(object sender, System.EventArgs e)

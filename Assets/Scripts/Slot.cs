@@ -85,6 +85,9 @@ namespace Assets.Scripts
 				return;
 			}
 			SlotClicked?.Invoke(this, EventArgs.Empty);
+			IsSelected = false;
+			MeshRenderer.enabled = false;
+			CurrentRenderer.material = DefaultColor;
 		}
 
 		private void OnMouseExit()
@@ -110,13 +113,13 @@ namespace Assets.Scripts
 			return Building;
 		}
 
-		public BaseCharacter SpawnCharacter(CharacterEnum type)
+		public BaseCharacter SpawnCharacter(CharacterEnum type, bool endgame)
 		{
 			GameObject go = Instantiate(CharacterFactory.GetPrefab(type));
 			go.transform.SetParent(GameObject.Find("Environment/Map/Entities").transform, false);
 			go.transform.position = Building.transform.position;
 			var character = go.GetComponent<BaseCharacter>();
-			character?.Setup(Building);
+			character?.Setup(Building, endgame);
 			return character;
 		}
 	}
