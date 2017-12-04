@@ -7,7 +7,13 @@ namespace Assets.Scripts.View
 {
 	public class BuildingButton : MonoBehaviour
 	{
+		public AudioSource ClickSfx;
 		public BuildingLogo[] LogoBuildings;
+
+		private void Awake()
+		{
+			GetComponentInChildren<Button>().onClick.AddListener(() => ClickSfx.Play());
+		}
 
 		public void ShowLogo(BuildingEnum val)
 		{

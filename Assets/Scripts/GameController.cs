@@ -218,6 +218,7 @@ namespace Assets.Scripts
 			{
 				List<Slot> slots = Slot.Slots
 										.Where(x => x.Content == null)
+										.Where(x => !x.IsSelected)
 										.Where(x => Vector3.Distance(x.transform.position, lastHouse.transform.position) < 22f).ToList();
 				if (slots.Count > 0)
 				{
@@ -229,7 +230,10 @@ namespace Assets.Scripts
 			// pick a random slot
 			if (slot == null)
 			{
-				var slots = Slot.Slots.Where(x => x.Content == null).ToList();
+				var slots = Slot.Slots
+								.Where(x => x.Content == null)
+								.Where(x => !x.IsSelected)
+								.ToList();
 				if (slots.Count > 0)
 				{
 					int r = rnd.Next(slots.Count);

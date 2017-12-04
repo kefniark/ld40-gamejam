@@ -25,7 +25,7 @@ namespace Assets.Scripts.Entities.Characters
 
 		public CharacterConfig Config;
 		public NavMeshAgent NavMeshAgent;
-		public CharacterInterest Interest { get { return interest; } }
+		public CharacterInterest Interest => interest;
 		private CharacterInterest interest = null;
 
 		public StateMachine<CharacterActionEnum, BaseCharacter> States;
@@ -50,11 +50,9 @@ namespace Assets.Scripts.Entities.Characters
 			States.Add(CharacterActionEnum.EnterTargetAnimation, new StateEnterTargetAnimation());
 			States.Add(CharacterActionEnum.WaitInsideTarget, new StateWaitInsideTarget());
 			States.Add(CharacterActionEnum.MoveToHome, new StateMoveToHome());
+			States.Add(CharacterActionEnum.Upsetted, new StateUpset());
 			States.Start();
 
-			// States.StateChanged += (sender, arg) => Debug.Log($"[CharacterState {States.Previous} => {States.Current}]");
-
-			// Debug.Log($"{this} Setup");
 			States.ChangeState(CharacterActionEnum.WaitInside);
 		}
 

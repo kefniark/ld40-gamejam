@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 
+using Assets.Scripts.Components;
+
 using DG.Tweening;
 
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.View
@@ -16,6 +19,14 @@ namespace Assets.Scripts.View
 		public Text Score;
 		public Image PopularityFill;
 
+		public AudioSource StartSfx;
+		public AudioSource GameOverSfx;
+		public AudioSource MoneySfx;
+		public AudioSource ComplainSfx;
+		public AudioMixer AudioSfx;
+
+		public void Awake() => AudioSfx.DOSetFloat("SfxVolume", 0, 0.1f);
+
 		internal void Setup(GameController gameController, GameBuildingConfig[] buildings)
 		{
 			Game = gameController;
@@ -25,6 +36,8 @@ namespace Assets.Scripts.View
 				InstantiateButton(building);
 			}
 
+			Game.States.States[GameStates.Game].Entered += (sender, args) => StartSfx.PlayDelayed(1);
+			Game.States.States[GameStates.Game].Exited += (sender, args) => GameOverSfx.PlayDelayed(1);
 			Game.MoneyChanged += (sender, args) => UpdateMoney();
 			Game.ScoreChanged += (sender, args) => UpdateScore();
 			Game.PopularityChanged += (sender, args) => UpdatePopularity();
@@ -53,12 +66,20 @@ namespace Assets.Scripts.View
 
 		public Transform CharacterInfoContainer;
 		public GameObject CharacterInfoPrefab;
+		public GameObject CharacterArrowPrefab;
 
 		private void InstantiateCharacterInfoUi(CharacterSpawnedArgs args)
 		{
 			GameObject go = Instantiate(CharacterInfoPrefab);
 			go.transform.SetParent(CharacterInfoContainer, false);
 			go.GetComponent<CharacterInfoUi>()?.Setup(args.Character);
+
+			GameObject go2 = Instantiate(CharacterArrowPrefab);
+			go2.transform.SetParent(CharacterInfoContainer, false);
+			go2.GetComponent<WorldOffscreenTrackingUi>()?.Setup(args.Character.transform, args.Character);
+
+			args.Character.States.States[CharacterActionEnum.WaitInsideTarget].Entered += (sender, arg2) => MoneySfx.Play();
+			args.Character.States.States[CharacterActionEnum.Upsetted].Entered += (sender, arg2) => ComplainSfx.Play();
 		}
 
 		#endregion

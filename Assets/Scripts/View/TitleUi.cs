@@ -10,7 +10,9 @@ namespace Assets.Scripts.View
 	{
 		public Transform Explain1;
 		public Transform Explain2;
+		public Transform Explain3;
 		public CanvasGroup ExplainCanvas;
+		public AudioSource Click;
 
 		private Action OnComplete;
 		public CanvasGroup Title;
@@ -38,24 +40,35 @@ namespace Assets.Scripts.View
 					Title.gameObject.SetActive(false);
 					ShowExplain1();
 				});
+			Click.Play();
 		}
 
 		public void ClickExplainNext()
 		{
 			Explain1.gameObject.SetActive(false);
 			Explain2.gameObject.SetActive(true);
+			Click.Play();
 		}
 
 		public void ClickExplain2Next()
 		{
 			Explain2.gameObject.SetActive(false);
+			Explain3.gameObject.SetActive(true);
+			Click.Play();
+		}
+
+		public void ClickExplain3Next()
+		{
+			Explain3.gameObject.SetActive(false);
 			ExplainCanvas.DOFade(0, 0.2f).OnComplete(
 				() => {
 					ExplainCanvas.gameObject.SetActive(false);
 					gameObject.SetActive(false);
 
 					OnComplete?.Invoke();
+					OnComplete = null;
 				});
+			Click.Play();
 		}
 	}
 }

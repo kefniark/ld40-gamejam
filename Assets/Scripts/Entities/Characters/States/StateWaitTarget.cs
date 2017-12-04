@@ -1,5 +1,8 @@
 using Assets.Scripts.Components.StateMachine;
 using System;
+
+using Assets.Scripts.Building;
+
 using UnityEngine;
 
 namespace Assets.Scripts.Entities.Characters
@@ -9,13 +12,7 @@ namespace Assets.Scripts.Entities.Characters
 		public event EventHandler WaitChanged;
 		private float stateEntered;
 		public float maxDuration = 12f;
-		public float Wait
-		{
-			get
-			{
-				return Math.Max(Math.Min((Time.time - stateEntered) / maxDuration, 1), 0);
-			}
-		}
+		public float Wait => Math.Max(Math.Min((Time.time - stateEntered) / maxDuration, 1), 0);
 
 		public StateWaitTarget()
 		{
@@ -30,7 +27,7 @@ namespace Assets.Scripts.Entities.Characters
 
 		public override void Update()
 		{
-			var target = Entity.GoToTarget();
+			BaseBuilding target = Entity.GoToTarget();
 			if (target != null)
 			{
 				WaitChanged?.Invoke(this, EventArgs.Empty);
@@ -45,7 +42,7 @@ namespace Assets.Scripts.Entities.Characters
 			}
 
 			Entity.Upset();
-			StateMachine.ChangeState(CharacterActionEnum.Decide);
+			StateMachine.ChangeState(CharacterActionEnum.Upsetted);
 		}
 	}
 }

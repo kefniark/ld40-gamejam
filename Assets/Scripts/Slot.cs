@@ -36,6 +36,8 @@ namespace Assets.Scripts
 
 		public bool IsInteractable = true;
 
+		public bool IsSelected { get; private set; }
+
 		private void OnEnable() => Slots.Add(this);
 
 		private void OnDisable() => Slots.Remove(this);
@@ -71,6 +73,7 @@ namespace Assets.Scripts
 				return;
 			}
 
+			IsSelected = true;
 			MeshRenderer.enabled = true;
 			CurrentRenderer.material = HoverColor;
 		}
@@ -90,6 +93,7 @@ namespace Assets.Scripts
 			{
 				return;
 			}
+			IsSelected = false;
 			MeshRenderer.enabled = false;
 			CurrentRenderer.material = DefaultColor;
 		}

@@ -1,6 +1,7 @@
 using DG.Tweening;
 
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -11,6 +12,12 @@ namespace Assets.Scripts.View
 		private bool anticlick;
 		public CanvasGroup Canvas;
 		public Text Text;
+		public AudioMixer AudioSfx;
+
+		public void Awake()
+		{
+			AudioSfx.DOSetFloat("SfxVolume", -50, 3f).SetDelay(3);
+		}
 
 		public void ShowResult(float score, float duration)
 		{

@@ -17,6 +17,8 @@ namespace Assets.Scripts.View
 		public BaseCharacter Character { get; private set; }
 		public Image Wait;
 		public Image WaitFill;
+		private CanvasGroup Canvas;
+		private Tweener CanvasAnim;
 		
 		public void Setup(BaseCharacter character)
 		{
@@ -31,13 +33,14 @@ namespace Assets.Scripts.View
 			Character.States.States[CharacterActionEnum.MoveToTarget].Entered += (sender, arg) => ShowLogo("walk");
 			Character.States.States[CharacterActionEnum.MoveToHome].Entered += (sender, arg) => ShowLogo("House");
 			Character.States.States[CharacterActionEnum.EnterTargetAnimation].Entered += (sender, arg) => ShowLogo("happy");
+			Character.States.States[CharacterActionEnum.Upsetted].Entered += (sender, arg) => ShowLogo("sad");
 
 			Character.InterestChanged += (obj, args) => UpdateInterest();
 			UpdateInterest();
 			HideWait();
 
-			var canvas = GetComponent<CanvasGroup>();
-			canvas.DOFade(1, 0.5f).SetDelay(2.5f);
+			Canvas = GetComponent<CanvasGroup>();
+			CanvasAnim = Canvas.DOFade(1f, 0.5f).SetDelay(2.5f);
 		}
 
 		private void UpdateInterest()
@@ -47,6 +50,7 @@ namespace Assets.Scripts.View
 				ShowLogo("");
 				return;
 			}
+			
 			ShowLogo(Character.Interest.Type.ToString());
 		}
 
@@ -63,6 +67,10 @@ namespace Assets.Scripts.View
 
 		private void ShowLogo(string val)
 		{
+			bool isNotInteresting = (val == "walk" || val == "happy" || val == "House");
+			CanvasAnim?.Kill();
+			CanvasAnim = Canvas.DOFade(isNotInteresting ? 0.4f : 1f, 1f);
+
 			foreach (CharacterInfoLogo logo in LogoActions)
 			{
 				logo.Logo.gameObject.SetActive(logo.Type == val);
