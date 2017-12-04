@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using UnityEditor;
 using UnityEngine;
 
@@ -16,24 +18,24 @@ public class PropsPrefabEditor : Editor
 
 		if (GUILayout.Button("Randomize All"))
 		{
-			var targets = GameObject.FindObjectsOfType<PropPrefab>();
-			foreach (var target in targets)
+			PropPrefab[] targetss = GameObject.FindObjectsOfType<PropPrefab>();
+			foreach (PropPrefab target2 in targetss)
 			{
-				Randomize(target);
+				Randomize(target2);
 			}
 		}
 
 		if (GUILayout.Button("Reset"))
 		{
-			Reset(component);
+			ResetStuff(component);
 		}
 
 		if (GUILayout.Button("Reset All"))
 		{
-			var targets = GameObject.FindObjectsOfType<PropPrefab>();
-			foreach (var target in targets)
+			PropPrefab[] targetss = GameObject.FindObjectsOfType<PropPrefab>();
+			foreach (PropPrefab target2 in targetss)
 			{
-				Reset(target);
+				ResetStuff(target2);
 			}
 		}
 	}
@@ -53,10 +55,12 @@ public class PropsPrefabEditor : Editor
 		prefab.Container.transform.localEulerAngles = new Vector3(0, Random.Range(0f, 360f), 0);
 	}
 
-	private void Reset(PropPrefab prefab)
+	private void ResetStuff(PropPrefab prefab)
 	{
 		prefab.Container.transform.localPosition = new Vector3(0, 0, 0);
 		prefab.Container.transform.localScale = new Vector3(1, 1, 1);
 		prefab.Container.transform.localEulerAngles = new Vector3(0, 0, 0);
 	}
 }
+
+#endif
