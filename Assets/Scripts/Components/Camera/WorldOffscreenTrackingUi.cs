@@ -64,13 +64,13 @@ namespace Assets.Scripts.Components
 			}
 			if (direction.x < -bounds.x)
 			{
-				realPosition.x = center.x - bounds.x;
+				realPosition.x = center.x - bounds.x + 120;
 				isBorder = true;
 			}
 
 			if (direction.y > bounds.y)
 			{
-				realPosition.y = center.y + bounds.y - 50;
+				realPosition.y = center.y + bounds.y - 20;
 				isBorder = true;
 			}
 			if (direction.y < -bounds.y)
